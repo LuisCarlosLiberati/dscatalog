@@ -31,7 +31,7 @@ public class CategoryService {
 
 		Page<Category> list = repository.findAll(pageRequest); // essa categegory é a entidade
 
-		// convert a lista em função lambda e passando a lista do dto ao invés do
+		// converte a lista em função lambda e passando a lista do dto ao invés do
 		// entity.
 		return list.map(x -> new CategoryDTO(x));
 	}
@@ -61,7 +61,7 @@ public class CategoryService {
 			return new CategoryDTO(entity);
 		}
 		catch (EntityNotFoundException e ) {
-			throw new ResourceNotFoundException("Id not found " + id);
+			throw new ResourceNotFoundException("Id não encontrado " + id);
 			
 		}
 	}
@@ -71,7 +71,7 @@ public class CategoryService {
 			repository.deleteById(id);
 		}
 		catch(EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Id not found " + id);
+			throw new ResourceNotFoundException("Id não encontrado " + id);
 		}
 		//trata a exception de não poder excluir a categoria por questões de negócio.
 		catch(DataIntegrityViolationException e) {
