@@ -32,7 +32,8 @@ public class Product implements Serializable{
 	private String description;
 	private Double price;
 	private String imgUrl;
-	
+
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date; //momento
 
@@ -103,7 +104,10 @@ public class Product implements Serializable{
 	public void setDate(Instant date) {
 		this.date = date;
 	}
-
+	
+	public Set<Category> getCategories() {
+		return categories;
+	}
 
 	@Override
 	public int hashCode() {
