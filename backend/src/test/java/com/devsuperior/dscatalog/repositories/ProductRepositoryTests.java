@@ -21,13 +21,12 @@ public class ProductRepositoryTests {
 	private long existingId;
 	private long nonExistingId;
 	private long countTotalProducts;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 1000L;
 		countTotalProducts = 25;
-	
 
 	}
 
@@ -38,7 +37,6 @@ public class ProductRepositoryTests {
 
 		Optional<Product> result = repository.findById(existingId); // vai tentar buscar o produto de id 1
 		Assertions.assertFalse(result.isPresent()); // e verifica que dentro do result não possui nenhum objeto.
-
 	}
 
 	@Test
@@ -53,10 +51,27 @@ public class ProductRepositoryTests {
 	public void saveShouldPersistWithAutoIncrementWhenIdIsNull() {
 		Product product = Factory.createProduct();
 		product.setId(null);
-		
+
 		product = repository.save(product);
 		Assertions.assertNotNull(product.getId()); // verifica que o id não é nulo
+
+		Assertions.assertEquals(countTotalProducts + 1, product.getId()); // verifica que o id é o 26
+	}
+
+	@Test
+	public void findByIdShouldReturnOptionalWhenIdExists() {
+
+		Optional<Product> result = repository.findById(existingId); // vai  buscar o produto de id 1
+		Assertions.assertFalse(result.isEmpty());
 		
-		Assertions.assertEquals(countTotalProducts +1 , product.getId()); // verifica que o id é o 26
+	}
+	
+	
+	@Test
+	public void findByIdShouldReturnOptionalEmptyWhenIdDoesNotExists() {
+
+		Optional<Product> result = repository.findById(200L); // vai  buscar o produto de id 1
+		Assertions.assertTrue(result.isEmpty());
+		
 	}
 }
